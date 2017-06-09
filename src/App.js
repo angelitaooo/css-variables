@@ -4,23 +4,26 @@ import logo from './logo.svg';
 class App extends Component {
 
   state = {
-    min: 10,
-    max:200,
-    value: 10
-  };
+    spacing: 0,
+    blur: 10,
+    color: "#ffc600" 
+  };    
 
-    // const inputs = document.querySelectorAll('.controls input');
-
-    // function handleUpdate() {
-    //   const suffix = this.dataset.sizing || '';
-    //   document.documentElement.style.setProperty(`--${this.name}`, this.value + suffix);
-    // }
-
-    handleUpdate(event) {
+    handleSpacing(event) {
       this.setState ({
         spacing: event.target.value
+      });     
+    }
+    handleBlur(event) {
+      this.setState ({
+        blur: event.target.value
       });
-      
+      document.documentElement.style.setProperty(`--blur`, this.state.blur + 'px');
+    }
+    handleColor(event) {
+      this.setState ({
+        color: event.target.value
+      });     
     }
 
     //pure javascript
@@ -28,9 +31,13 @@ class App extends Component {
     // inputs.forEach(input => input.addEventListener('mousemove', handleUpdate));
 
   render() {
+    const styles = {
+      padding: this.state.spacing,
+      backgroundColor: this.state.color 
+    }
     return (
       <div className="App">
-        <h2>Update CSS Variables with <span className='hl'>React</span></h2>
+        <h2>Styling an image with <span className='hl'>React</span></h2>
 
         <div className="controls">
           <label for={this.state.spacing}>Spacing:</label>
@@ -41,19 +48,19 @@ class App extends Component {
           min="10" max="200" 
           value={this.state.spacing}
           data-sizing="px" 
-          onClick={this.handleUpdate.bind(this)}
+          onChange={this.handleSpacing.bind(this)}
           readOnly
           />
 
-          {/*<label for="blur">Blur:</label>
+          <label for="blur">Blur:</label>
           <input 
             id="blur" 
             type="range" 
             name="blur" 
             min="0" max="25" 
-            value="10" 
+            value={this.state.blur} 
             data-sizing="px"
-            onClick={this.handleUpdate.bind(this)}
+            onChange={this.handleBlur.bind(this)}
             readOnly
           />
 
@@ -62,13 +69,13 @@ class App extends Component {
             id="base" 
             type="color" 
             name="base" 
-            value="#ffc600" 
-            onClick={this.handleUpdate.bind(this)}
+            value={this.state.color} 
+            onChange={this.handleColor.bind(this)}
             readOnly
-          />*/}
+          />
         </div>
 
-        <img src="https://source.unsplash.com/7bwQXzbF6KE/800x500" />
+        <img  style={styles} src="https://source.unsplash.com/7bwQXzbF6KE/800x500" />
       </div>
     );
   }
