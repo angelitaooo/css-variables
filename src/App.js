@@ -3,12 +3,25 @@ import logo from './logo.svg';
 
 class App extends Component {
 
+  state = {
+    min: 10,
+    max:200,
+    value: 10
+  };
+
     // const inputs = document.querySelectorAll('.controls input');
 
     // function handleUpdate() {
     //   const suffix = this.dataset.sizing || '';
     //   document.documentElement.style.setProperty(`--${this.name}`, this.value + suffix);
     // }
+
+    handleUpdate(event) {
+      this.setState ({
+        spacing: event.target.value
+      });
+      
+    }
 
     //pure javascript
     // inputs.forEach(input => input.addEventListener('change', handleUpdate));
@@ -20,19 +33,19 @@ class App extends Component {
         <h2>Update CSS Variables with <span className='hl'>React</span></h2>
 
         <div className="controls">
-          <label for="spacing">Spacing:</label>
+          <label for={this.state.spacing}>Spacing:</label>
           <input 
           id="spacing" 
           type="range" 
           name="spacing" 
           min="10" max="200" 
-          value="10" 
+          value={this.state.spacing}
           data-sizing="px" 
           onClick={this.handleUpdate.bind(this)}
-          onMouseMove={this.handleUpdate.bind(this)}
+          readOnly
           />
 
-          <label for="blur">Blur:</label>
+          {/*<label for="blur">Blur:</label>
           <input 
             id="blur" 
             type="range" 
@@ -41,7 +54,7 @@ class App extends Component {
             value="10" 
             data-sizing="px"
             onClick={this.handleUpdate.bind(this)}
-            onMouseMove={this.handleUpdate.bind(this)}
+            readOnly
           />
 
           <label for="base">Base Color</label>
@@ -51,8 +64,8 @@ class App extends Component {
             name="base" 
             value="#ffc600" 
             onClick={this.handleUpdate.bind(this)}
-            onMouseMove={this.handleUpdate.bind(this)}
-          />
+            readOnly
+          />*/}
         </div>
 
         <img src="https://source.unsplash.com/7bwQXzbF6KE/800x500" />
